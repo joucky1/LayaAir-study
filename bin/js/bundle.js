@@ -98,6 +98,46 @@
         }
     }
 
+    class WidgScrpit extends Laya.Script {
+        constructor() {
+            super();
+            this.send = 10;
+        }
+        onEnable() {
+        }
+        onDisable() {
+        }
+        onStart() {
+            setInterval(() => {
+                setInterval(() => {
+                    let r = Math.random() * 255;
+                    let g = Math.random() * 255;
+                    let b = Math.random() * 255;
+                    this.label_title.color = 'rgb(' + r + ',' + g + ',' + b + ')';
+                }, 1000);
+                if (this.label_title.x <= 280) {
+                    this.label_title.x += 10;
+                }
+                else {
+                    this.label_title.x = 0;
+                }
+            }, 50);
+        }
+        onAwake() {
+            this.aa = this.owner.getChildAt(0);
+            this.btnStart = this.aa.getChildByName('btn');
+        }
+        onUpdate() {
+            if (this.btnStart.x > 300) {
+                this.send = -this.send;
+            }
+            if (this.btnStart.x < 10) {
+                this.send = -this.send;
+            }
+            this.btnStart.x += this.send;
+        }
+    }
+
     class GameConfig {
         constructor() {
         }
@@ -105,6 +145,7 @@
             var reg = Laya.ClassUtils.regClass;
             reg("game/Button.ts", Button);
             reg("game/home.ts", home);
+            reg("game/WidgScrpit.ts", WidgScrpit);
         }
     }
     GameConfig.width = 1136;
@@ -113,7 +154,7 @@
     GameConfig.screenMode = "none";
     GameConfig.alignV = "top";
     GameConfig.alignH = "left";
-    GameConfig.startScene = "Home.scene";
+    GameConfig.startScene = "WidgeSence.scene";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
     GameConfig.stat = false;
