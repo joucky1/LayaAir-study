@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    class GameContro extends Laya.Script {
+    class test extends Laya.Script {
         constructor() {
             super();
             this.intType = 1000;
@@ -12,9 +12,57 @@
         onEnable() {
         }
         onStart() {
-            console.log(this.owner.name);
-            this.owner.name = 'newHome';
-            console.log(this.owner.name);
+            console.log('我是测试脚本！');
+        }
+        onDisable() {
+        }
+    }
+
+    class BaseScript extends Laya.Script {
+        constructor() {
+            super();
+            this.intType = 1000;
+            this.numType = 1000;
+            this.strType = "hello laya";
+            this.boolType = true;
+        }
+        removeCoponet(nodeCls) {
+            let s = this.owner.getComponent(nodeCls);
+            s.destroy();
+        }
+        onEnable() {
+        }
+        onDisable() {
+        }
+    }
+
+    class home extends BaseScript {
+        constructor() {
+            super();
+            this.button = null;
+            this.age = null;
+        }
+        onAwake() {
+            let btn = this.owner.getChildAt(1);
+            console.log(this.owner.numChildren);
+            let txt = new Laya.Text();
+            txt.fontSize = 50;
+            txt.text = 'sdasd';
+            txt.color = 'red';
+            txt.x = 0;
+            txt.y = 0;
+            this.owner.addChild(txt);
+        }
+        onEnable() {
+        }
+        onStart() {
+            let Sprite = this.owner;
+            console.log(Sprite.x);
+            Sprite.addComponent(test);
+            setTimeout(() => {
+                this.removeCoponet(test);
+                console.log('销毁成功！');
+            }, 1000);
         }
         onDisable() {
         }
@@ -25,7 +73,7 @@
         }
         static init() {
             var reg = Laya.ClassUtils.regClass;
-            reg("Game/GameContro.ts", GameContro);
+            reg("game/home.ts", home);
         }
     }
     GameConfig.width = 1136;
@@ -36,7 +84,7 @@
     GameConfig.alignH = "left";
     GameConfig.startScene = "Home.scene";
     GameConfig.sceneRoot = "";
-    GameConfig.debug = true;
+    GameConfig.debug = false;
     GameConfig.stat = false;
     GameConfig.physicsDebug = false;
     GameConfig.exportSceneToJson = true;
