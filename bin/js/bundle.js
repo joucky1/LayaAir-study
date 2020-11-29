@@ -1,6 +1,38 @@
 (function () {
     'use strict';
 
+    class BaseScript extends Laya.Script {
+        constructor() {
+            super();
+            this.intType = 1000;
+            this.numType = 1000;
+            this.strType = "hello laya";
+            this.boolType = true;
+        }
+        removeCoponet(nodeCls) {
+            let s = this.owner.getComponent(nodeCls);
+            s.destroy();
+        }
+        onEnable() {
+        }
+        onDisable() {
+        }
+    }
+
+    class codeScript extends BaseScript {
+        constructor() { super(); }
+        onEnable() {
+        }
+        onDisable() {
+        }
+        onStart() {
+            console.log(this.label_title.x, this.label_title.y);
+            let p = new Laya.Point(0, 0);
+            this.label_btn.globalToLocal(p, false);
+            console.log(p.x, p.y);
+        }
+    }
+
     class Button extends Laya.Script {
         constructor() {
             super();
@@ -31,24 +63,6 @@
         }
         onStart() {
             console.log('我是测试脚本！');
-        }
-        onDisable() {
-        }
-    }
-
-    class BaseScript extends Laya.Script {
-        constructor() {
-            super();
-            this.intType = 1000;
-            this.numType = 1000;
-            this.strType = "hello laya";
-            this.boolType = true;
-        }
-        removeCoponet(nodeCls) {
-            let s = this.owner.getComponent(nodeCls);
-            s.destroy();
-        }
-        onEnable() {
         }
         onDisable() {
         }
@@ -143,6 +157,7 @@
         }
         static init() {
             var reg = Laya.ClassUtils.regClass;
+            reg("game/codeScript.ts", codeScript);
             reg("game/Button.ts", Button);
             reg("game/home.ts", home);
             reg("game/WidgScrpit.ts", WidgScrpit);
@@ -154,7 +169,7 @@
     GameConfig.screenMode = "none";
     GameConfig.alignV = "top";
     GameConfig.alignH = "left";
-    GameConfig.startScene = "WidgeSence.scene";
+    GameConfig.startScene = "codeSence.scene";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
     GameConfig.stat = false;

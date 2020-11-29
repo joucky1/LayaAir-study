@@ -5,7 +5,7 @@ export default class WidgScrpit extends Laya.Script {
     public btnStart :Laya.Button;
 
     public aa :Laya.Node;
-    public send :number = 10
+    public send :number = 10 
     
     // 更多参数说明请访问: https://ldc2.layabox.com/doc/?nav=zh-as-2-4-0
     
