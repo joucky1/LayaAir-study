@@ -6,7 +6,7 @@
     "searchKey":"Scene",
     "props":{"width":640,"sceneColor":"#000000","height":1136},
     "nodeParent":-1,
-    "maxID":7,
+    "maxID":8,
     "label":"Scene",
     "isOpen":true,
     "isDirectory":true,
@@ -35,12 +35,28 @@
             "props":{"y":322,"x":260,"skin":"comp/button.png","name":"Btn","label":"开始游戏"},
             "nodeParent":2,
             "label":"Btn",
-            "isDirectory":false,
+            "isOpen":null,
+            "isDirectory":true,
             "isAniNode":true,
-            "hasChild":false,
+            "hasChild":true,
             "compId":5,
             "child":[
-                ]
+                {
+                    "type":"Script",
+                    "switchAble":true,
+                    "source":"src/game/Button.ts",
+                    "searchKey":"Script,Button",
+                    "removeAble":true,
+                    "props":{},
+                    "nodeParent":5,
+                    "label":"Button",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":7,
+                    "child":[
+                        ]
+                }]
         },
         {
             "x":15,

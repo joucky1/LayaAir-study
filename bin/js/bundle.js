@@ -1,6 +1,24 @@
 (function () {
     'use strict';
 
+    class Button extends Laya.Script {
+        constructor() {
+            super();
+            this.intType = 1000;
+            this.numType = 1000;
+            this.strType = "hello laya";
+            this.boolType = true;
+        }
+        onEnable() {
+        }
+        onDisable() {
+        }
+        onMouseDown(e) {
+            e.stopPropagation();
+            console.log('鼠标按下了', e.target);
+        }
+    }
+
     class test extends Laya.Script {
         constructor() {
             super();
@@ -44,7 +62,7 @@
         }
         onAwake() {
             let btn = this.owner.getChildAt(1);
-            console.log(this.owner.numChildren);
+            console.log("测试是否获取子节点：" + this.owner.numChildren);
             let txt = new Laya.Text();
             txt.fontSize = 50;
             txt.text = 'sdasd';
@@ -52,6 +70,18 @@
             txt.x = 0;
             txt.y = 0;
             this.owner.addChild(txt);
+            let handler = function (x) {
+                console.log(x);
+            };
+            handler('测试回调函数：我是一个回调语句');
+            let h = Laya.Handler.create({ Zane: '作用域中的上下文(this)' }, function (x, y, arg) {
+                console.log(this, x, y);
+                console.log("多余的参数", arg);
+            }, ['安保', '撒旦'], false);
+            h.runWith(['sadasdas!']);
+        }
+        onKeyDown(e) {
+            console.log('我按键盘了');
         }
         onEnable() {
         }
@@ -61,7 +91,7 @@
             Sprite.addComponent(test);
             setTimeout(() => {
                 this.removeCoponet(test);
-                console.log('销毁成功！');
+                console.log('测试是否引入test脚本：销毁成功！');
             }, 1000);
         }
         onDisable() {
@@ -73,6 +103,7 @@
         }
         static init() {
             var reg = Laya.ClassUtils.regClass;
+            reg("game/Button.ts", Button);
             reg("game/home.ts", home);
         }
     }

@@ -28,7 +28,9 @@ export default class home extends BaseScript {
         //方法三：通过索引来获取子节点
         // console.log(this.owner.getChildAt(1))
         let btn :Button = this.owner.getChildAt(1) as Button;
-        console.log(this.owner.numChildren)
+        console.log("测试是否获取子节点："+this.owner.numChildren)
+
+        //创建节点！
         let txt:Laya.Text = new Laya.Text() as Laya.Text;
         txt.fontSize = 50;
         txt.text = 'sdasd';
@@ -37,6 +39,34 @@ export default class home extends BaseScript {
         txt.y = 0;
         this.owner.addChild(txt)
 
+        //handler 回调函数
+        let handler = function(x){
+            console.log(x)
+        }
+        handler('测试回调函数：我是一个回调语句')
+
+       /*  缓存池(创建一个缓存池)将不再频繁创建新的节点，而是将要重复使用的动画节点，讲执行完后不销毁，放入缓存池中，再要使用
+        的时候直接再从缓存池中拿出来使用，释放CPU效率*/
+
+        //z中放入的是一个对象
+         let h: Laya.Handler = Laya.Handler.create( {Zane:'作用域中的上下文(this)'} ,function(x,y,arg){
+            console.log(this,x,y)
+            console.log("多余的参数",arg)
+        },['安保','撒旦'],false) 
+        // h.run();
+        h.runWith(['sadasdas!'])
+
+
+    }
+    // 鼠标点击事件事件
+    // onMouseDown(e:Laya.Event):void{
+    //     e.stopPropagation(); //阻止冒泡即当前事件遍历不会在向父节点传递
+    //     console.log('scence按下了',e.target)
+
+    // }
+    // 键盘按下事件
+    onKeyDown(e:Laya.Event):void{
+        console.log('我按键盘了')
     }
     
     onEnable(): void {
@@ -52,7 +82,7 @@ export default class home extends BaseScript {
             // let Test =  this.owner.getComponent(test) as Laya.Sprite
             // Test.destroy();
             this.removeCoponet(test)
-            console.log('销毁成功！')
+            console.log('测试是否引入test脚本：销毁成功！')
         },1000)
        
 
