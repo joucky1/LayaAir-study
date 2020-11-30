@@ -30,6 +30,8 @@
             let p = new Laya.Point(0, 0);
             this.label_btn.globalToLocal(p, false);
             console.log(p.x, p.y);
+            this.label_title.x = this.label_title.x - p.x;
+            this.label_title.y = this.label_title.y - p.y;
         }
     }
 
@@ -112,6 +114,84 @@
         }
     }
 
+    class ThiorySceneScript extends Laya.Script {
+        constructor() {
+            super();
+            this.intType = 1000;
+            this.count = 0;
+        }
+        onEnable() {
+        }
+        onDisable() {
+        }
+        onStart() {
+            Laya.timer.loop(1000, this, function () {
+                this.count++;
+                if (this.count >= 5) {
+                    console.log('条件满足响应动作');
+                }
+            });
+        }
+        onKeyDown() {
+        }
+    }
+
+    class BaseScript$1 extends Laya.Script {
+        constructor() {
+            super();
+            this.intType = 1000;
+            this.numType = 1000;
+            this.strType = "hello laya";
+            this.boolType = true;
+        }
+        removeCoponet(nodeCls) {
+            let s = this.owner.getComponent(nodeCls);
+            s.destroy();
+        }
+        onEnable() {
+        }
+        onDisable() {
+        }
+    }
+
+    class TimerScript extends BaseScript$1 {
+        constructor() {
+            super();
+            this.intType = 1000;
+        }
+        onEnable() {
+        }
+        onDisable() {
+        }
+        onStart() {
+        }
+        onUpdate() {
+            let n = Laya.timer.currFrame;
+            let t = Laya.timer.currTimer;
+        }
+    }
+
+    class TweenSceneScript extends Laya.Script {
+        constructor() {
+            super();
+            this.player = null;
+            this.title = null;
+        }
+        onEnable() {
+        }
+        onDisable() {
+        }
+        onStart() {
+            this.title.alpha = 0;
+            let r = Laya.TimeLine.to(this.player, { x: 567, y: 320, scaleX: 0.5, scaleY: 0.5 }, 2000, Laya.Ease.backInOut);
+            r.to(this.title, { alpha: 1 }, 1000);
+            r.play(100);
+            r.on(Laya.Event.COMPLETE, this, function () {
+                console.log('动画结束！');
+            });
+        }
+    }
+
     class WidgScrpit extends Laya.Script {
         constructor() {
             super();
@@ -160,6 +240,9 @@
             reg("game/codeScript.ts", codeScript);
             reg("game/Button.ts", Button);
             reg("game/home.ts", home);
+            reg("scene/ThiorySceneScript.ts", ThiorySceneScript);
+            reg("scene/TimerScript.ts", TimerScript);
+            reg("scene/TweenSceneScript.ts", TweenSceneScript);
             reg("game/WidgScrpit.ts", WidgScrpit);
         }
     }
@@ -169,7 +252,7 @@
     GameConfig.screenMode = "none";
     GameConfig.alignV = "top";
     GameConfig.alignH = "left";
-    GameConfig.startScene = "codeSence.scene";
+    GameConfig.startScene = "TweenScene.scene";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
     GameConfig.stat = false;

@@ -2,6 +2,9 @@
 import codeScript from "./game/codeScript"
 import Button from "./game/Button"
 import home from "./game/home"
+import ThiorySceneScript from "./scene/ThiorySceneScript"
+import TimerScript from "./scene/TimerScript"
+import TweenSceneScript from "./scene/TweenSceneScript"
 import WidgScrpit from "./game/WidgScrpit"
 /*
 * 游戏初始化配置;
@@ -13,7 +16,7 @@ export default class GameConfig{
     static screenMode:string="none";
     static alignV:string="top";
     static alignH:string="left";
-    static startScene:any="codeSence.scene";
+    static startScene:any="TweenScene.scene";
     static sceneRoot:string="";
     static debug:boolean=false;
     static stat:boolean=false;
@@ -25,6 +28,9 @@ export default class GameConfig{
         reg("game/codeScript.ts",codeScript);
         reg("game/Button.ts",Button);
         reg("game/home.ts",home);
+        reg("scene/ThiorySceneScript.ts",ThiorySceneScript);
+        reg("scene/TimerScript.ts",TimerScript);
+        reg("scene/TweenSceneScript.ts",TweenSceneScript);
         reg("game/WidgScrpit.ts",WidgScrpit);
     }
 }
